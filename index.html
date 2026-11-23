@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sangeeta Sinha | Founder &amp; CEO, VigilAI Solutions</title>
+    <meta
+      name="description"
+      content="Founder &amp; CEO, VigilAI Solutions. Healthcare and payments AI agents with human sign-off."
+    />
+    <meta name="theme-color" content="#071422" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      (function () {
+        var colors = {
+          cyberpunk: "#070910",
+          vigilai: "#071422",
+          clinical: "#eef2f5",
+        };
+        var theme = "vigilai";
+        try {
+          var query = new URLSearchParams(location.search).get("theme");
+          var stored = localStorage.getItem("theme");
+          if (query && colors[query]) theme = query;
+          else if (stored && colors[stored]) theme = stored;
+        } catch (e) {}
+        document.documentElement.setAttribute("data-theme", theme);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", colors[theme]);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
