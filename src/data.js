@@ -15,6 +15,8 @@ export const site = {
       "Healthcare technology founder and product executive with 20+ years inside healthcare: as a Medical Officer in the Army Medical Corps (India), then ran two Houston-area outpatient clinics, then led healthcare data, revenue-cycle and AI products. I have done the front-desk, billing-coding, clinical-data and compliance work that AI is now being asked to take over, and I have seen where it goes wrong.",
       "I build AI agents that do this work while a named person keeps the authority: the model drafts, the rules check, a human approves, and every step is logged. With formal training in AI, machine learning and cybersecurity, I write the code myself and also work as a forward-deployed consultant, building inside each client's own workflow and turning technology into measurable clinical, operational and financial results.",
     ],
+    closing:
+      "I welcome conversations about strategic partnerships, consulting and project work, new ventures, forward-deployed engineering (FDE) and forward-deployed specialist consulting roles, and roles where healthcare and AI meet. Let's talk.",
   },
   projects: [
     {

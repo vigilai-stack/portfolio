@@ -164,6 +164,19 @@ function sectionTitle(text, id) {
   return el("h2", { id, text });
 }
 
+function renderClosing() {
+  const phrase = "Let's talk.";
+  const text = site.about.closing;
+  const splitAt = text.lastIndexOf(phrase);
+  const paragraph = el("p", { class: "closing" });
+  paragraph.append(
+    text.slice(0, splitAt),
+    el("a", { href: site.contact[0].href, text: "Let's talk" }),
+    ".",
+  );
+  return paragraph;
+}
+
 function renderAbout() {
   return el("section", {
     class: "tab-panel",
@@ -176,6 +189,7 @@ function renderAbout() {
     el("p", { class: "place", text: site.about.place }),
     el("p", { class: "statement", text: site.statement }),
     ...site.about.paragraphs.map((paragraph) => el("p", { text: paragraph })),
+    renderClosing(),
   ]);
 }
 
@@ -344,6 +358,7 @@ function renderContact() {
       { class: "contact-list" },
       site.contact.slice(1).map((item) => el("li", {}, [textLink(item)])),
     ),
+    renderClosing(),
   ]);
 }
 
