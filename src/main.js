@@ -436,9 +436,47 @@ function renderTabs(panels) {
   return { list, select };
 }
 
+function startTour(select) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const ids = tabs.map((tab) => tab.id);
+  let timer = 0;
+  let stopped = false;
+  let advancing = false;
+
+  function stop() {
+    if (stopped || advancing) return;
+    stopped = true;
+    clearInterval(timer);
+    window.removeEventListener("pointerdown", stop, true);
+    window.removeEventListener("wheel", stop, true);
+    window.removeEventListener("scroll", stop, true);
+    window.removeEventListener("keydown", stop, true);
+    window.removeEventListener("touchmove", stop, true);
+  }
+
+  function advance() {
+    if (stopped) return;
+    const current = document.querySelector("[role='tab'][aria-selected='true']");
+    const index = Math.max(0, ids.indexOf(current?.getAttribute("aria-controls")));
+    advancing = true;
+    select(ids[(index + 1) % ids.length], false);
+    requestAnimationFrame(() => {
+      advancing = false;
+    });
+  }
+
+  window.addEventListener("pointerdown", stop, { capture: true, passive: true });
+  window.addEventListener("wheel", stop, { capture: true, passive: true });
+  window.addEventListener("scroll", stop, { capture: true, passive: true });
+  window.addEventListener("keydown", stop, { capture: true });
+  window.addEventListener("touchmove", stop, { capture: true, passive: true });
+  timer = setInterval(advance, 4500);
+}
+
 const profile = renderProfile();
 const panels = [renderAbout(), renderResume(), renderPortfolio(), renderContact()];
-const { list } = renderTabs(panels);
+const { list, select } = renderTabs(panels);
 const main = el("main", { id: "content", class: "panel", tabindex: "-1" }, [
   list,
   ...panels,
@@ -449,3 +487,4 @@ const footer = el("footer", { class: "site-footer" }, [
 ]);
 app.replaceChildren(shell, footer);
 applyTheme(currentTheme());
+startTour(select);
