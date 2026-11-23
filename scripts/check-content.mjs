@@ -10,15 +10,6 @@ const banned = [
   /physician/i,
   /\bdoctor\b/i,
   /\bDr\./,
-  /openai/i,
-  /anthropic/i,
-  /chatgpt/i,
-  /\bclaude\b/i,
-  /gemini/i,
-  /midjourney/i,
-  /mistral/i,
-  /huggingface/i,
-  /copilot/i,
 ];
 
 for (const pattern of banned) {
