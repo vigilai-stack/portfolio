@@ -47,11 +47,6 @@ function currentTheme() {
   return themeIds.includes(value) ? value : "vigilai";
 }
 
-function themeLabel(id) {
-  const name = themes.find((theme) => theme.id === id)?.label || id;
-  return `Theme: ${name}`;
-}
-
 function applyTheme(id, options = {}) {
   document.documentElement.setAttribute("data-theme", id);
   if (options.persist) {
@@ -66,24 +61,21 @@ function applyTheme(id, options = {}) {
   }
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute("content", themeColors[id]);
-  const button = document.querySelector("[data-theme-toggle]");
-  if (button) {
-    const label = themeLabel(id);
-    button.textContent = label;
-    button.setAttribute("aria-label", `${label}. Switch theme.`);
-  }
 }
 
 function renderThemeButton() {
-  const id = currentTheme();
-  const label = themeLabel(id);
+  const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  icon.setAttribute("class", "palette-icon");
+  icon.setAttribute("viewBox", "0 0 24 24");
+  icon.setAttribute("aria-hidden", "true");
+  icon.innerHTML =
+    '<path fill="currentColor" fill-rule="evenodd" d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>';
   const button = el("button", {
     class: "theme-toggle",
     type: "button",
     "data-theme-toggle": "true",
-    text: label,
-    "aria-label": `${label}. Switch theme.`,
-  });
+    "aria-label": "Change look",
+  }, [icon, el("span", { text: "Change look" })]);
   button.addEventListener("click", () => {
     const index = themeIds.indexOf(currentTheme());
     applyTheme(themeIds[(index + 1) % themeIds.length], { persist: true });
