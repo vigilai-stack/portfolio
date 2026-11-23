@@ -268,7 +268,7 @@ h1 {
 
 .profile-actions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 0.5rem;
   margin-top: 0.85rem;
 }
@@ -280,8 +280,11 @@ h1 {
 }
 
 .theme-toggle {
-  color: var(--accent);
-  border-color: var(--line);
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: transparent;
+  font-weight: 600;
+  box-shadow: var(--glow);
 }
 
 .profile-details {
@@ -633,9 +636,6 @@ h2 {
     margin-bottom: 1.5rem;
   }
 
-  .profile-actions {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (min-width: 1600px) {

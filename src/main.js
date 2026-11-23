@@ -47,39 +47,46 @@ function currentTheme() {
   return themeIds.includes(value) ? value : "vigilai";
 }
 
-function applyTheme(id) {
+function themeLabel(id) {
+  const name = themes.find((theme) => theme.id === id)?.label || id;
+  return `Theme: ${name}`;
+}
+
+function applyTheme(id, options = {}) {
   document.documentElement.setAttribute("data-theme", id);
-  try {
-    localStorage.setItem("theme", id);
-  } catch (e) {
-    /* storage can be blocked; the URL still carries the choice */
+  if (options.persist) {
+    try {
+      localStorage.setItem("theme-choice", id);
+    } catch (e) {
+      /* storage can be blocked; the page still switches */
+    }
+    const url = new URL(location.href);
+    url.searchParams.set("theme", id);
+    history.replaceState(null, "", url);
   }
-  const url = new URL(location.href);
-  url.searchParams.set("theme", id);
-  history.replaceState(null, "", url);
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute("content", themeColors[id]);
   const button = document.querySelector("[data-theme-toggle]");
-  const label = themes.find((theme) => theme.id === id)?.label || id;
   if (button) {
+    const label = themeLabel(id);
     button.textContent = label;
-    button.setAttribute("aria-label", `Theme ${label}. Switch theme.`);
+    button.setAttribute("aria-label", `${label}. Switch theme.`);
   }
 }
 
 function renderThemeButton() {
   const id = currentTheme();
-  const label = themes.find((theme) => theme.id === id)?.label || id;
+  const label = themeLabel(id);
   const button = el("button", {
     class: "theme-toggle",
     type: "button",
     "data-theme-toggle": "true",
     text: label,
-    "aria-label": `Theme ${label}. Switch theme.`,
+    "aria-label": `${label}. Switch theme.`,
   });
   button.addEventListener("click", () => {
     const index = themeIds.indexOf(currentTheme());
-    applyTheme(themeIds[(index + 1) % themeIds.length]);
+    applyTheme(themeIds[(index + 1) % themeIds.length], { persist: true });
   });
   return button;
 }

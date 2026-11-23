@@ -20,7 +20,7 @@
         var theme = "vigilai";
         try {
           var query = new URLSearchParams(location.search).get("theme");
-          var stored = localStorage.getItem("theme");
+          var stored = localStorage.getItem("theme-choice");
           if (query && colors[query]) theme = query;
           else if (stored && colors[stored]) theme = stored;
         } catch (e) {}

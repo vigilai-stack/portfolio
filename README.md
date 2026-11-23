@@ -2,13 +2,13 @@
 
 Personal portfolio for Sangeeta Sinha, Founder & CEO of VigilAI Solutions.
 
-The page is a responsive vCard: a profile card beside the section panel on a wide screen, and a compact top card on tablet and phone. Open a theme with a query parameter:
+The page is a responsive vCard: a profile card beside the section panel on a wide screen, and a compact top card on tablet and phone. The first visit opens the VigilAI theme. The theme control cycles Cyberpunk, VigilAI, and Clinical, and remembers that choice in this browser. A query parameter still selects a theme for that visit:
 
 - `?theme=cyberpunk`
 - `?theme=vigilai`
 - `?theme=clinical`
 
-The theme control cycles those three. On a wide screen the profile card stays sticky while the main panel scrolls. On a narrower screen it collapses, and **Show contacts** expands the contact details.
+On a wide screen the profile card stays sticky while the main panel scrolls. On a narrower screen it collapses, and **Show contacts** expands the contact details.
 
 ## Run locally
 
